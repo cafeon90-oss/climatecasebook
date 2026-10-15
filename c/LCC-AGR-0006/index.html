@@ -13,7 +13,7 @@
 <style id="font-face">
 @font-face {
   font-family: "Pretendard Subset";
-  src: url(/assets/font.8ce981774e.woff) format("woff");
+  src: url(/assets/font.1720ea547d.woff) format("woff");
   font-weight: 45 920;
   font-display: swap;
 }
@@ -162,7 +162,7 @@ h3 { font-size: 17px; font-weight: 700; line-height: 1.45; margin: 0 0 8px; }
 .index-head { padding-block: 40px 26px; }
 .filter-bar { display: grid; gap: 10px; margin: 0 0 18px; }
 .filters { border: 0; margin: 0; padding: 0; min-width: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
-.filters-label { font-size: 13.5px; font-weight: 600; color: var(--ink-3); min-width: 2.6em; }
+.filters-label { font-size: 13.5px; font-weight: 600; color: var(--ink-3); min-width: 4.6em; }
 .filters label { padding: 5px 13px; border: 1px solid var(--rule); border-radius: 999px; background: var(--panel); font-size: 13.5px; font-weight: 600; color: var(--ink-2); cursor: pointer; }
 .filters input:checked + label { background: var(--ink); border-color: var(--ink); color: var(--paper); }
 .count { margin-left: 6px; font-weight: 500; opacity: .75; font-variant-numeric: tabular-nums; }
@@ -474,9 +474,9 @@ table { border-collapse: collapse; width: 100%; }
   };
   const SCALES = [
     ['전체', () => true],
-    ['1만 이하', p => p <= 10000],
-    ['1~10만', p => p > 10000 && p <= BIG],
-    ['10만 초과', p => p > BIG]
+    ['1만 명 이하', p => p <= 10000],
+    ['1만~10만 명', p => p > 10000 && p <= BIG],
+    ['10만 명 초과', p => p > BIG]
   ];
   const SCHEMA = [
     ['id · title · summary_line · summary', '사례 번호, 제목, 제목 아래 한 줄 요약, 설명'],
@@ -836,9 +836,9 @@ table { border-collapse: collapse; width: 100%; }
       h('div', { class: 'filter-bar' },
         filterSet('sector', '분야', sectors, sector,
           s => CASES.filter(c => inSector(c, s) && inScale(c)).length, v => { sector = v; }),
-        filterSet('scale', '규모', SCALES.map(x => x[0]), scale,
+        filterSet('scale', '인구 규모', SCALES.map(x => x[0]), scale,
           s => CASES.filter(c => inSector(c) && inScale(c, s)).length, v => { scale = v; })),
-      small.length || big.length ? null : h('p', { class: 'empty' }, '조건에 맞는 사례가 없어요. 분야나 규모를 바꿔 보세요.'),
+      small.length || big.length ? null : h('p', { class: 'empty' }, '조건에 맞는 사례가 없어요. 분야나 인구 규모를 바꿔 보세요.'),
       krCases.length ? h('section', { class: 'group', id: 'sec-kr' },
         h('header', { class: 'group-head is-first' },
           h('p', { class: 'eyebrow' }, '국내 지자체'),
