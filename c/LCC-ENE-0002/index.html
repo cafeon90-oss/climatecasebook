@@ -13,7 +13,7 @@
 <style id="font-face">
 @font-face {
   font-family: "Pretendard Subset";
-  src: url(/assets/font.2161e0d721.woff) format("woff");
+  src: url(/assets/font.f1a6b693d8.woff) format("woff");
   font-weight: 45 920;
   font-display: swap;
 }
@@ -405,7 +405,7 @@ table { border-collapse: collapse; width: 100%; }
 
 <main id="app" class="wrap"><h1>작은 마을이 전기를 팔아 번다, 빌트폴츠리트와 이토시로</h1><p>주민이 출자한 발전소로 작은 농촌 마을이 쓰는 것보다 많은 전기를 만들어 판다.</p><p>두 곳 모두 작은 농촌 마을이 주민 출자 발전소로 남는 전기를 팝니다. 빌트폴츠리트는 주민 풍력회사 등으로 마을 소비의 몇 배를 만들고, 이토시로는 거의 전 가구가 출자한 농협이 소수력 매전 수입을 마을 유지에 씁니다.</p><p><a href="/">목차</a></p></main>
 
-<footer class="wrap foot"><p>개인이 공개 자료를 원문과 대조해 정리하는 비공식 사례집이에요 · 모든 수치에 출처와 근거 등급을 붙였어요 · 정부·공공기관과 관계없어요</p></footer>
+<footer class="wrap foot"><p>개인이 공개 자료를 원문과 대조해 정리하는 비공식 사례집이에요 · 모든 수치에 출처와 근거 등급을 붙였어요 · 정부·공공기관과 관계없어요 · <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.ko" target="_blank" rel="noopener license">CC BY-NC 4.0</a> · 문의 <a href="mailto:hello@climatecasebook.com">hello@climatecasebook.com</a></p></footer>
 
 <script type="application/json" id="case-data">[]</script>
 <script type="application/json" id="item-data">[]</script>
@@ -602,7 +602,7 @@ table { border-collapse: collapse; width: 100%; }
 
   /* ── 이 자료에 대해 · 내려받기 ── */
   const HISTORY = [
-    ['2026-10-16', '공식 주소 climatecasebook.com 개설(사례마다 /c/사례번호/ 주소), 문의 메일 hello@climatecasebook.com, 권장 지역 점수 가운데 2020년 이전 근거를 최신 자료로 다시 확인(홍천 풍력 마을 후보 조건 확인→더 확인 필요, 예천 온천 2024년 이용객으로 갱신)'],
+    ['2026-10-16', '공식 주소 climatecasebook.com 개설(사례마다 /c/사례번호/ 주소), 이용 조건 CC BY-NC 4.0, 문의 메일 hello@climatecasebook.com, 권장 지역 점수 가운데 2020년 이전 근거를 최신 자료로 다시 확인(홍천 풍력 마을 후보 조건 확인→더 확인 필요, 예천 온천 2024년 이용객으로 갱신)'],
     ['2026-10-15', '새 사례 3건(장수·서천 경축순환, 제주·덴마크 저메탄사료, 오코페·바나스 분뇨 가스 새 활용), 모든 사례·품목의 글을 절반 이하로 줄임, 권장 지역에 6개 축 판단기준(규모·재정·자원·제도·실행 주체·수요) 점수와 근거를 붙임'],
     ['2026-10-14', '새 사례 2건(고창·플라흐탈 농가 모임의 축산 탄소 감축, 영광·홍성 저탄소 축산물 인증), 목차를 국내 사례와 해외 사례로 나누고 국내 사례를 먼저, 품목도 국내 경로를 먼저 보여 줌'],
     ['2026-10-12', '새 사례 2건(가메오카·야마나시 소규모 바이오차, 홍천 소매곡리·시카오이 마을 분뇨), 비교하는 곳 중 한 곳이라도 인구 10만 이하면 중심 목록에 두도록 분류 기준 정리, 제목 아래 한 줄 요약 추가, 지역별 한 줄을 짧게, 본문을 화면 폭에 맞게 넓히고 비교 지역을 나란히 배치, 결과 수치 가운데 해마다 바뀐 값과 둘을 견준 값은 막대그래프로, 비율은 가로 막대로'],
@@ -643,7 +643,8 @@ table { border-collapse: collapse; width: 100%; }
   const clean = v => Array.isArray(v) ? v.map(clean)
     : (v && typeof v === 'object') ? Object.fromEntries(Object.entries(v).filter(([k]) => !HIDDEN.has(k)).map(([k, x]) => [k, clean(x)]))
     : v;
-  const dataJson = () => JSON.stringify({ title: SITE, updated: latestDate(), cases: clean(CASES), items: clean(ITEMS) }, null, 2);
+  const LICENSE = 'CC BY-NC 4.0 (https://creativecommons.org/licenses/by-nc/4.0/deed.ko) · 출처: 로컬 기후 케이스북 (https://climatecasebook.com) · 인용된 원문 자료의 권리는 각 출처에 있음';
+  const dataJson = () => JSON.stringify({ title: SITE, updated: latestDate(), license: LICENSE, cases: clean(CASES), items: clean(ITEMS) }, null, 2);
   const offer = async (filename, make) => {
     const note = document.getElementById('dl-note');
     if (note) note.textContent = '';
@@ -679,6 +680,9 @@ table { border-collapse: collapse; width: 100%; }
           h('div', null, h('dt', null, grade(g)), h('dd', null, t))))),
       h('div', null, h('h3', null, '데이터 내려받기'),
         h('p', null, '수치와 근거를 한 줄씩 모은 표와 전체 데이터를 받을 수 있어요. 인용할 때는 이 자료와 각 수치의 원 출처를 함께 밝혀 주세요.'),
+        h('p', { class: 'contact' }, h('b', null, '이용 조건 '), '이 자료의 글, 정리, 비교표, 권장 지역 점수는 ',
+          h('a', { href: 'https://creativecommons.org/licenses/by-nc/4.0/deed.ko', target: '_blank', rel: 'noopener license' }, 'CC BY-NC 4.0'),
+          '으로 공개해요. 출처(로컬 기후 케이스북, climatecasebook.com)를 밝히면 비상업적으로 자유롭게 쓰고 고칠 수 있어요. 공공기관의 업무·교육·보고서 활용은 비상업적 이용으로 봐요. 상업적으로 쓰려면 hello@climatecasebook.com으로 문의해 주세요. 인용한 원문 자료(보도자료·논문·기사 등)의 권리는 각 출처에 있어요.'),
         saver
           ? h('p', { class: 'dl-row' },
               h('button', { type: 'button', class: 'dl-btn', onclick: () => offer('local-climate-casebook_evidence_' + latestDate() + '.csv', evidenceCsv) }, '수치·근거 표 (CSV)'),
