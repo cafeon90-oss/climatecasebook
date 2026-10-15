@@ -13,7 +13,7 @@
 <style id="font-face">
 @font-face {
   font-family: "Pretendard Subset";
-  src: url(/assets/font.f1a6b693d8.woff) format("woff");
+  src: url(/assets/font.aff8d1b7f4.woff) format("woff");
   font-weight: 45 920;
   font-display: swap;
 }
@@ -636,6 +636,7 @@ table { border-collapse: collapse; width: 100%; }
       add('권장 지역', { ...c, last_verified: k.checked }, p.place + ' (' + p.region + ')', p.population,
         { label: f.text, value: p.fit === '적합' ? '조건 확인' : '더 확인 필요', unit: '', grade: (srcOf(c, f.source)[0] || {}).grade, source: f.source },
         (k.model ? k.model + ' · ' : '') + '운영자 권장 · 지자체 계획 아님')))));
+    rows.push(['이용 조건', LICENSE]);
     return '\uFEFF' + [head, ...rows].map(r => r.map(csvCell).join(',')).join('\r\n');
   }
   // 화면에 쓰지 않는 예전 일반/프로 구분 필드는 빼고 내보낸다
