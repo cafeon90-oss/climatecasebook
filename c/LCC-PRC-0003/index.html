@@ -13,7 +13,7 @@
 <style id="font-face">
 @font-face {
   font-family: "Pretendard Subset";
-  src: url(/assets/font.1720ea547d.woff) format("woff");
+  src: url(/assets/font.f284664ec4.woff) format("woff");
   font-weight: 45 920;
   font-display: swap;
 }
@@ -436,7 +436,7 @@ table { border-collapse: collapse; width: 100%; }
 <script type="application/json" id="case-data">[]</script>
 <script type="application/json" id="item-data">[]</script>
 
-<script src="/assets/data.83fa2504ac.js"></script>
+<script src="/assets/data.7202baeaa1.js"></script>
 <script>
 (() => {
   // 비교하는 곳이 모두 인구 10만을 넘을 때만 '대도시 참고'로 따로 보여 준다.
@@ -617,18 +617,17 @@ table { border-collapse: collapse; width: 100%; }
       j.population ? h('span', { class: 'jpop', title: j.population_year ? j.population_year + ' 기준 인구' : null },
         '인구 ' + (j.population_approx ? '약 ' : '') + fmtPop(j.population), withCite ? cite(j.population_source) : null) : null),
     h('span', { class: 'pill tone-' + j.program.status.tone }, j.program.status.label))));
-  const relatedList = items => h('ul', { class: 'related' }, items.map(r => {
-    // case_id는 사례나 품목 id. 게시된 카드가 있으면 링크로 잇는다
-    const target = r.case_id && [...CASES, ...ITEMS].find(c => c.id === r.case_id);
-    const isItem = target && ITEMS.includes(target);
-    return h('li', null,
+  // case_id는 사례나 품목 id. 게시된 카드만 잇고, 아직 없는 카드는 보이지 않는다
+  const liveRelated = items => (items || []).map(r => [r, r.case_id && [...CASES, ...ITEMS].find(c => c.id === r.case_id)]).filter(([, t]) => t);
+  const relatedList = pairs => h('ul', { class: 'related' }, pairs.map(([r, target]) =>
+    h('li', null,
       h('span', { class: 'code' }, r.code),
-      target ? h('a', { href: to(target.id) }, r.title) : h('span', null, r.title),
-      h('span', { class: target ? 'soon is-live' : 'soon' }, target ? (isItem ? '품목 있음' : '사례 있음') : r.status));
-  }));
+      h('a', { href: to(target.id) }, r.title),
+      h('span', { class: 'soon is-live' }, ITEMS.includes(target) ? '품목 있음' : '사례 있음'))));
 
   /* ── 이 자료에 대해 · 내려받기 ── */
   const HISTORY = [
+    ['2026-10-17', '새 품목 1건(양식장 기름보일러를 바닷물 열 히트펌프로), 연관 사례에는 게시된 카드만 표시'],
     ['2026-10-16', '공식 주소 climatecasebook.com 개설(사례마다 /c/사례번호/ 주소), 운영자 소개 페이지, 이용 조건 CC BY-NC 4.0, 사례마다 함께 볼 부서 표시와 한 장 요약 인쇄, 문의 메일 hello@climatecasebook.com, 권장 지역 점수 가운데 2020년 이전 근거를 최신 자료로 다시 확인(홍천 풍력 마을 후보 조건 확인→더 확인 필요, 예천 온천 2024년 이용객으로 갱신)'],
     ['2026-10-15', '새 사례 3건(장수·서천 경축순환, 제주·덴마크 저메탄사료, 오코페·바나스 분뇨 가스 새 활용), 모든 사례·품목의 글을 절반 이하로 줄임, 권장 지역에 6개 축 판단기준(규모·재정·자원·제도·실행 주체·수요) 점수와 근거를 붙임'],
     ['2026-10-14', '새 사례 2건(고창·플라흐탈 농가 모임의 축산 탄소 감축, 영광·홍성 저탄소 축산물 인증), 목차를 국내 사례와 해외 사례로 나누고 국내 사례를 먼저, 품목도 국내 경로를 먼저 보여 줌'],
@@ -814,10 +813,6 @@ table { border-collapse: collapse; width: 100%; }
     const latest = latestDate();
     const places = new Set(CASES.flatMap(c => c.jurisdictions.map(j => j.name))).size;
     const smallCount = CASES.filter(c => !isBig(c)).length;
-    const live = new Set([...CASES, ...ITEMS].map(c => c.id));
-    const upcoming = [...new Map(CASES.flatMap(c => c.related || [])
-      .filter(r => !(r.case_id && live.has(r.case_id)))
-      .map(r => [r.title, r])).values()];
     return [
       h('section', { class: 'index-head' },
         h('p', { class: 'meta' },
@@ -869,7 +864,6 @@ table { border-collapse: collapse; width: 100%; }
           h('h2', null, '대도시 참고'),
           h('p', { class: 'group-note' }, '규모가 커서 그대로 옮기긴 어렵지만, 제도 설계와 결과를 참고할 만한 사례예요.')),
         h('ul', { class: 'cases is-ref' }, big.map(caseRow))) : null,
-      upcoming.length ? section('upcoming', 'related[]', '다음에 올라올 사례', relatedList(upcoming)) : null,
       about()
     ];
   }
@@ -1080,9 +1074,10 @@ table { border-collapse: collapse; width: 100%; }
           h('ul', { class: 'checks' }, b.actions.map(a => h('li', null, h('span', null, a)))))));
   };
 
-  const related = () => (data.related && data.related.length)
-    ? section('related', 'related[]', '같이 보면 좋은 사례', relatedList(data.related))
-    : null;
+  const related = () => {
+    const pairs = liveRelated(data.related);
+    return pairs.length ? section('related', 'related[]', '같이 보면 좋은 사례', relatedList(pairs)) : null;
+  };
 
   const sources = () => section('sources', 'sources[]', '출처와 근거 등급',
     h('ol', { class: 'sources' }, data.sources.map(s => h('li', { id: 'src-' + s.id },
