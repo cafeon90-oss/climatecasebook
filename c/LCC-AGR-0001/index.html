@@ -13,7 +13,7 @@
 <style id="font-face">
 @font-face {
   font-family: "Pretendard Subset";
-  src: url(/assets/font.f284664ec4.woff) format("woff");
+  src: url(/assets/font.5f7ada9adf.woff) format("woff");
   font-weight: 45 920;
   font-display: swap;
 }
@@ -385,6 +385,13 @@ table { border-collapse: collapse; width: 100%; }
 
 /* 데이터 구조 */
 .schema { margin-top: 44px; padding-top: 16px; border-top: 1px solid var(--rule); }
+.history summary { cursor: pointer; display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 12px; list-style: none; }
+.history summary::-webkit-details-marker { display: none; }
+.history summary h3 { display: inline; margin: 0; }
+.history summary h3::after { content: ' ▸'; color: var(--accent); }
+.history[open] summary h3::after { content: ' ▾'; }
+.history-meta { font-size: 13px; color: var(--ink-3); }
+.history[open] summary { margin-bottom: 10px; }
 .schema summary { cursor: pointer; font-weight: 700; font-size: 15px; }
 .schema summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
 .schema-note { font-size: 14px; color: var(--ink-2); margin: 10px 0 14px; }
@@ -626,8 +633,9 @@ table { border-collapse: collapse; width: 100%; }
       h('span', { class: 'soon is-live' }, ITEMS.includes(target) ? '품목 있음' : '사례 있음'))));
 
   /* ── 이 자료에 대해 · 내려받기 ── */
+  let historyOpen = false;
   const HISTORY = [
-    ['2026-10-17', '새 품목 1건(양식장 기름보일러를 바닷물 열 히트펌프로), 연관 사례에는 게시된 카드만 표시'],
+    ['2026-10-17', '새 품목 1건(양식장 기름보일러를 바닷물 열 히트펌프로), 연관 사례에는 게시된 카드만 표시, 업데이트 기록 접기'],
     ['2026-10-16', '공식 주소 climatecasebook.com 개설(사례마다 /c/사례번호/ 주소), 운영자 소개 페이지, 이용 조건 CC BY-NC 4.0, 사례마다 함께 볼 부서 표시와 한 장 요약 인쇄, 문의 메일 hello@climatecasebook.com, 권장 지역 점수 가운데 2020년 이전 근거를 최신 자료로 다시 확인(홍천 풍력 마을 후보 조건 확인→더 확인 필요, 예천 온천 2024년 이용객으로 갱신)'],
     ['2026-10-15', '새 사례 3건(장수·서천 경축순환, 제주·덴마크 저메탄사료, 오코페·바나스 분뇨 가스 새 활용), 모든 사례·품목의 글을 절반 이하로 줄임, 권장 지역에 6개 축 판단기준(규모·재정·자원·제도·실행 주체·수요) 점수와 근거를 붙임'],
     ['2026-10-14', '새 사례 2건(고창·플라흐탈 농가 모임의 축산 탄소 감축, 영광·홍성 저탄소 축산물 인증), 목차를 국내 사례와 해외 사례로 나누고 국내 사례를 먼저, 품목도 국내 경로를 먼저 보여 줌'],
@@ -716,8 +724,8 @@ table { border-collapse: collapse; width: 100%; }
               h('button', { type: 'button', class: 'dl-btn', onclick: () => offer('local-climate-casebook_data_' + latestDate() + '.json', dataJson) }, '전체 데이터 (JSON)'))
           : h('p', { class: 'dl-wait' }, saver === null ? '이 화면에서는 내려받기를 쓸 수 없어요.' : '내려받기를 준비하고 있어요.'),
         h('p', { class: 'dl-note', id: 'dl-note', role: 'status' }))),
-    h('div', { class: 'history' },
-      h('h3', null, '업데이트 기록'),
+    h('details', { class: 'history', open: historyOpen, ontoggle: e => { historyOpen = e.target.open; } },
+      h('summary', null, h('h3', null, '업데이트 기록'), h('span', { class: 'history-meta' }, '최근 ' + HISTORY[0][0] + ' · ' + HISTORY.length + '건')),
       h('ul', { class: 'related' }, HISTORY.map(([d, t]) => h('li', null, h('span', { class: 'code' }, d), h('span', null, t))))));
 
   /* ── 운영자 소개 ── */
