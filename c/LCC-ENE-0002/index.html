@@ -13,7 +13,7 @@
 <style id="font-face">
 @font-face {
   font-family: "Pretendard Subset";
-  src: url(/assets/font.50a351dd3d.woff) format("woff");
+  src: url(/assets/font.759e81702b.woff) format("woff");
   font-weight: 45 920;
   font-display: swap;
 }
@@ -424,7 +424,9 @@ table { border-collapse: collapse; width: 100%; }
 .history[open] summary h3::after { content: ' ▾'; }
 .history-meta { font-size: 13px; color: var(--ink-3); }
 .history[open] summary { margin-bottom: 10px; }
-.credit-top { margin: 0 0 8px; }
+.credit-top { margin: 0 0 8px; display: flex; align-items: baseline; gap: 8px; }
+.credit-top:not(:first-child) { margin-top: 18px; }
+.credit-k { font-size: 13px; font-weight: 800; color: var(--ink-2); }
 .credit-methods { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 6px; }
 .credit-methods li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; font-size: 14.5px; padding: 8px 0; border-top: 1px solid var(--rule-2); }
 .credit-methods .est { font-size: 12px; font-weight: 700; color: var(--warn); background: var(--warn-bg); border-radius: 999px; padding: 1px 8px; }
@@ -479,7 +481,7 @@ table { border-collapse: collapse; width: 100%; }
 <script type="application/json" id="case-data">[]</script>
 <script type="application/json" id="item-data">[]</script>
 
-<script src="/assets/data.00b29a3f8e.js"></script>
+<script src="/assets/data.b8010b0fcb.js"></script>
 <script>
 (() => {
   // 비교하는 곳이 모두 인구 10만을 넘을 때만 '대도시 참고'로 따로 보여 준다.
@@ -672,7 +674,7 @@ table { border-collapse: collapse; width: 100%; }
   /* ── 이 자료에 대해 · 내려받기 ── */
   let historyOpen = false;
   const HISTORY = [
-    ['2026-10-18', '첫 화면에 사례·품목 전체 검색, 요약 타일과 한 줄 목록으로 정리, 배출권을 실제로 받은 품목에 탄소배출권 확보 표시, 모든 사례·품목에 탄소배출권으로 바꿀 수 있나(국내 외부사업 인증 실적·적용 방법론) 칸 추가, 새 품목 1건(가로등 LED로 줄인 탄소를 배출권으로)'],
+    ['2026-10-18', '첫 화면에 사례·품목 전체 검색, 요약 타일과 한 줄 목록으로 정리, 크레딧을 실제로 받은 카드에 탄소크레딧 확보 표시(가메오카 J-크레딧 포함), 모든 사례·품목에 탄소배출권으로 바꿀 수 있나(국내 외부사업 인증 실적·적용 방법론) 칸 추가, 새 품목 1건(가로등 LED로 줄인 탄소를 배출권으로)'],
     ['2026-10-17', '새 사례 1건(스왑엄 프라이어·블리란트 마을 히트펌프 열망), 새 품목 2건(양식장 기름보일러를 바닷물 열 히트펌프로, 하우스 기름 난방기를 지열·공기열 히트펌프로), 품목 화면에도 같이 보면 좋은 사례 표시, 연관 사례에는 게시된 카드만 표시, 업데이트 기록 접기'],
     ['2026-10-16', '공식 주소 climatecasebook.com 개설(사례마다 /c/사례번호/ 주소), 운영자 소개 페이지, 이용 조건 CC BY-NC 4.0, 사례마다 함께 볼 부서 표시와 한 장 요약 인쇄, 문의 메일 hello@climatecasebook.com, 권장 지역 점수 가운데 2020년 이전 근거를 최신 자료로 다시 확인(홍천 풍력 마을 후보 조건 확인→더 확인 필요, 예천 온천 2024년 이용객으로 갱신)'],
     ['2026-10-15', '새 사례 3건(장수·서천 경축순환, 제주·덴마크 저메탄사료, 오코페·바나스 분뇨 가스 새 활용), 모든 사례·품목의 글을 절반 이하로 줄임, 권장 지역에 6개 축 판단기준(규모·재정·자원·제도·실행 주체·수요) 점수와 근거를 붙임'],
@@ -792,7 +794,7 @@ table { border-collapse: collapse; width: 100%; }
 
   /* ── 목차 ── */
   // 이 방식으로 국내 배출권을 실제로 받은 카드: 목록 왼쪽과 머리에 따로 표시
-  const creditBadge = c => c.credit && c.credit.own ? h('span', { class: 'credit-badge' }, '탄소배출권 확보') : null;
+  const creditBadge = c => c.credit && c.credit.own ? h('span', { class: 'credit-badge' }, '탄소크레딧 확보') : null;
   const creditChip = c => c.credit ? h('span', { class: 'chip' }, '배출권 · ' + CREDIT[c.credit.status][0]) : null;
   const caseRow = c => h('li', { class: 'case-row', 'data-id': c.id },
     h('a', { class: 'case-link', href: to(c.id) },
@@ -1100,7 +1102,7 @@ table { border-collapse: collapse; width: 100%; }
 
   const head = () => h('section', { class: 'case-head' },
     h('p', { class: 'meta' },
-      h('span', null, data.id), h('span', null, data.sector + ' · ' + data.topic), h('span', null, data.instrument),
+      h('span', null, data.id), h('span', null, data.sector + ' · ' + data.topic), h('span', null, data.instrument), creditBadge(data),
       isBig(data) ? h('span', null, '대도시 참고') : null,
       h('span', null, '최종 확인 ' + data.last_verified)),
     h('h1', null, data.title),
@@ -1226,7 +1228,9 @@ table { border-collapse: collapse; width: 100%; }
     const [label, tone] = CREDIT[k.status];
     return section('credit', 'credit', '탄소배출권으로 바꿀 수 있나',
       h('div', { class: 'credit' },
-        h('p', { class: 'credit-top' }, h('span', { class: 'pill tone-' + tone }, label)),
+        k.here ? h('p', { class: 'credit-top' }, h('span', { class: 'pill tone-' + (k.here.issued ? 'ok' : 'warn') }, k.here.issued ? '이 사례가 크레딧 확보' : '이 사례는 크레딧 없음')) : null,
+        k.here ? h('p', null, k.here.text, cite(k.here.source)) : null,
+        h('p', { class: 'credit-top' }, k.here ? h('span', { class: 'credit-k' }, '국내 외부사업') : null, h('span', { class: 'pill tone-' + tone }, label)),
         h('p', null, k.text, cite(k.source)),
         k.methods && k.methods.length ? h('ul', { class: 'credit-methods' }, k.methods.map(m => h('li', null,
           h('span', { class: 'code' }, m.id), h('span', null, m.name),
