@@ -13,7 +13,7 @@
 <style id="font-face">
 @font-face {
   font-family: "Pretendard Subset";
-  src: url(/assets/font.759e81702b.woff) format("woff");
+  src: url(/assets/font.a6d29b64f7.woff) format("woff");
   font-weight: 45 920;
   font-display: swap;
 }
@@ -430,6 +430,50 @@ table { border-collapse: collapse; width: 100%; }
 .credit-methods { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 6px; }
 .credit-methods li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; font-size: 14.5px; padding: 8px 0; border-top: 1px solid var(--rule-2); }
 .credit-methods .est { font-size: 12px; font-weight: 700; color: var(--warn); background: var(--warn-bg); border-radius: 999px; padding: 1px 8px; }
+.fund-stats { list-style: none; margin: 22px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 12px; }
+.fund-stats li { display: grid; gap: 4px; padding: 14px 16px; background: var(--panel); border: 1px solid var(--rule); border-radius: 12px; }
+.fund-stats b { font-size: 28px; font-weight: 800; color: var(--accent); line-height: 1.1; }
+.fund-stats span { font-size: 13.5px; color: var(--ink-2); }
+.fund-grid { list-style: none; margin: 8px 0 24px; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 14px; }
+.fund-card { display: flex; flex-direction: column; gap: 8px; padding: 18px 18px 14px; background: var(--panel); border: 1px solid var(--rule); border-radius: 14px; }
+.fund-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.fund-amt { margin: 0; display: grid; gap: 2px; }
+.fund-amt b { font-size: 26px; font-weight: 800; color: var(--accent); line-height: 1.15; }
+.fund-amt b.none { font-size: 17px; color: var(--ink-2); }
+.fund-amt span { font-size: 12.5px; color: var(--ink-3); }
+.fund-card h2 { margin: 4px 0 0; font-size: 19px; line-height: 1.35; }
+.fund-org { margin: 0; font-size: 13px; font-weight: 700; color: var(--ink-3); }
+.fund-pitch { margin: 0; font-size: 14.5px; color: var(--ink-2); }
+.fund-dl { margin: 2px 0 0; display: grid; gap: 4px; }
+.fund-dl div { display: grid; grid-template-columns: 5.2em 1fr; gap: 8px; font-size: 13.5px; }
+.fund-dl dt { font-weight: 800; color: var(--ink-2); }
+.fund-dl dd { margin: 0; }
+.fund-ex h3 { margin: 6px 0 4px; font-size: 13px; color: var(--ink-2); }
+.fund-ex ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 3px; font-size: 13.5px; }
+.fund-ex li b { margin-right: 6px; }
+.fund-ex ul.plain li::before { content: '· '; color: var(--ink-3); }
+.fund-ex.warn h3 { color: var(--warn); }
+.fund-more { margin-top: auto; padding-top: 8px; border-top: 1px solid var(--rule-2); }
+.fund-more summary { cursor: pointer; font-size: 13px; font-weight: 700; color: var(--accent); }
+.fund-more[open] summary { margin-bottom: 8px; }
+.fund-note { margin: 0 0 6px; font-size: 13px; color: var(--ink-2); }
+.fund-full { margin: 0 0 6px; font-size: 12.5px; color: var(--ink-3); }
+.fund-glance h2, .fund-h2 { font-size: 20px; margin: 18px 0 10px; }
+.fund-table-wrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 12px; background: var(--panel); }
+.fund-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+.fund-table th, .fund-table td { padding: 9px 12px; border-bottom: 1px solid var(--rule-2); text-align: left; vertical-align: top; }
+.fund-table thead th { font-size: 12.5px; color: var(--ink-3); background: var(--paper); position: sticky; top: 0; }
+.fund-table tbody th { min-width: 13em; font-weight: 800; }
+.fund-table tbody th a { text-decoration: none; }
+.fund-table tbody th span { display: block; font-size: 12px; font-weight: 600; color: var(--ink-3); }
+.fund-table td.amt { white-space: nowrap; font-weight: 800; color: var(--accent); }
+.fund-table td.places { min-width: 18em; }
+.fund-table td.places div + div { margin-top: 3px; }
+.fund-table td.places b { margin-right: 6px; color: var(--ink-2); }
+.fund-tnote { color: var(--ink-3); font-size: 12.5px; }
+.fund-card { scroll-margin-top: 70px; }
+.fund-src { margin: 6px 0 0; padding: 8px 0 0; border-top: 1px solid var(--rule-2); list-style: none; display: grid; gap: 3px; font-size: 12px; color: var(--ink-3); }
+.fund-src a { color: var(--ink-2); }
 .schema summary { cursor: pointer; font-weight: 700; font-size: 15px; }
 .schema summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
 .schema-note { font-size: 14px; color: var(--ink-2); margin: 10px 0 14px; }
@@ -469,6 +513,7 @@ table { border-collapse: collapse; width: 100%; }
 <header class="bar">
   <div class="bar-in">
     <p class="brand"><a class="brand-name" href="/">로컬 기후 케이스북</a><span class="brand-note">작은 지자체 탄소중립 사례집</span></p>
+    <a class="bar-link" href="/funding/">탄소중립 국비 공모</a>
     <a class="bar-link" href="/about/">운영자 소개</a>
     <p class="home-note" id="home-note" hidden>공식 주소는 <a href="https://climatecasebook.com/" target="_blank" rel="noopener">climatecasebook.com</a>이에요</p>
   </div>
@@ -480,8 +525,9 @@ table { border-collapse: collapse; width: 100%; }
 
 <script type="application/json" id="case-data">[]</script>
 <script type="application/json" id="item-data">[]</script>
+<script type="application/json" id="fund-data">[]</script>
 
-<script src="/assets/data.b8010b0fcb.js"></script>
+<script src="/assets/data.5135985c6e.js"></script>
 <script>
 (() => {
   // 비교하는 곳이 모두 인구 10만을 넘을 때만 '대도시 참고'로 따로 보여 준다.
@@ -505,8 +551,11 @@ table { border-collapse: collapse; width: 100%; }
   const PATHS = !!DATA;
   const to = id => PATHS ? (id ? '/c/' + id + '/' : '/') : '#/' + (id || '');
   const ABOUT = PATHS ? '/about/' : '#/about';
+  const FUNDING = PATHS ? '/funding/' : '#/funding';
   const CASES = (DATA ? DATA.cases : JSON.parse(document.getElementById('case-data').textContent))
     .sort((a, b) => (isBig(a) - isBig(b)) || a.id.localeCompare(b.id));
+  // 탄소중립 국비 공모(funding/programs.json)
+  const FUNDS = DATA ? (DATA.funds || []) : JSON.parse(document.getElementById('fund-data').textContent);
   const ITEMS = (DATA ? DATA.items : JSON.parse(document.getElementById('item-data').textContent))
     .sort((a, b) => a.id.localeCompare(b.id));
   const app = document.getElementById('app');
@@ -674,7 +723,7 @@ table { border-collapse: collapse; width: 100%; }
   /* ── 이 자료에 대해 · 내려받기 ── */
   let historyOpen = false;
   const HISTORY = [
-    ['2026-10-18', '첫 화면에 사례·품목 전체 검색, 요약 타일과 한 줄 목록으로 정리, 크레딧을 실제로 받은 카드에 탄소크레딧 확보 표시(가메오카 J-크레딧 포함), 모든 사례·품목에 탄소배출권으로 바꿀 수 있나(국내 외부사업 인증 실적·적용 방법론) 칸 추가, 새 품목 1건(가로등 LED로 줄인 탄소를 배출권으로)'],
+    ['2026-10-18', '탄소중립 국비 공모 페이지(사업 ' + FUNDS.length + '개) 추가, 첫 화면에 사례·품목 전체 검색, 요약 타일과 한 줄 목록으로 정리, 크레딧을 실제로 받은 카드에 탄소크레딧 확보 표시(가메오카 J-크레딧 포함), 모든 사례·품목에 탄소배출권으로 바꿀 수 있나(국내 외부사업 인증 실적·적용 방법론) 칸 추가, 새 품목 1건(가로등 LED로 줄인 탄소를 배출권으로)'],
     ['2026-10-17', '새 사례 1건(스왑엄 프라이어·블리란트 마을 히트펌프 열망), 새 품목 2건(양식장 기름보일러를 바닷물 열 히트펌프로, 하우스 기름 난방기를 지열·공기열 히트펌프로), 품목 화면에도 같이 보면 좋은 사례 표시, 연관 사례에는 게시된 카드만 표시, 업데이트 기록 접기'],
     ['2026-10-16', '공식 주소 climatecasebook.com 개설(사례마다 /c/사례번호/ 주소), 운영자 소개 페이지, 이용 조건 CC BY-NC 4.0, 사례마다 함께 볼 부서 표시와 한 장 요약 인쇄, 문의 메일 hello@climatecasebook.com, 권장 지역 점수 가운데 2020년 이전 근거를 최신 자료로 다시 확인(홍천 풍력 마을 후보 조건 확인→더 확인 필요, 예천 온천 2024년 이용객으로 갱신)'],
     ['2026-10-15', '새 사례 3건(장수·서천 경축순환, 제주·덴마크 저메탄사료, 오코페·바나스 분뇨 가스 새 활용), 모든 사례·품목의 글을 절반 이하로 줄임, 권장 지역에 6개 축 판단기준(규모·재정·자원·제도·실행 주체·수요) 점수와 근거를 붙임'],
@@ -758,6 +807,96 @@ table { border-collapse: collapse; width: 100%; }
     h('details', { class: 'history', open: historyOpen, ontoggle: e => { historyOpen = e.target.open; } },
       h('summary', null, h('h3', null, '업데이트 기록'), h('span', { class: 'history-meta' }, '최근 ' + HISTORY[0][0] + ' · ' + HISTORY.length + '건')),
       h('ul', { class: 'related' }, HISTORY.map(([d, t]) => h('li', null, h('span', { class: 'code' }, d), h('span', null, t))))));
+
+  /* ── 탄소중립 국비 공모 ── */
+  const FUND_STATUS = { open: ['접수 중', 'ok'], annual: ['매년 공모', 'ok'], designate: ['지정·심사', 'warn'],
+    subsidy: ['상시 보조', 'warn'], once: ['단발·종료', 'crit'], unknown: ['공모 미정', 'warn'] };
+  let fundField = '전체';
+  let fundState = '전체';
+  const FUND_STATES = { '전체': null, '매년·접수 중': ['annual', 'open'], '지정·상시 보조': ['designate', 'subsidy', 'unknown'], '단발·종료': ['once'] };
+  const inState = (f, k = fundState) => !FUND_STATES[k] || FUND_STATES[k].includes(f.status);
+  const fundingView = () => {
+    const fields = ['전체', ...new Set(FUNDS.map(f => f.field))];
+    if (!fields.includes(fundField)) fundField = '전체';
+    const shown = FUNDS.filter(f => (fundField === '전체' || f.field === fundField) && inState(f))
+      .sort((a, b) => (b.per_site?.amount ?? -1) - (a.per_site?.amount ?? -1));
+    const top = [...FUNDS].sort((a, b) => (b.per_site?.amount ?? -1) - (a.per_site?.amount ?? -1))[0];
+    const yearly = FUNDS.filter(f => ['annual', 'open'].includes(f.status)).length;
+    const open = FUNDS.filter(f => f.status === 'open');
+    const checked = FUNDS.map(f => f.checked).sort().pop();
+    const src = (f, ids) => [].concat(ids || []).map(id => f.sources.findIndex(s => s.id === id) + 1).filter(n => n > 0);
+    const short = t => t.replace(/\s*\(.*\)\s*$/, '');
+    // 국비 카드 안 출처 번호: 카드 아래 출처 목록의 순번
+    const fcite = (f, ids) => {
+      const ns = [].concat(ids || []).map(id => f.sources.findIndex(x => x.id === id) + 1).filter(n => n > 0);
+      return ns.length ? h('sup', { class: 'cite' }, ns.join(',')) : null;
+    };
+    const exLine = x => h('li', null, h('b', null, x.place), h('span', null, [x.year, x.amount].filter(Boolean).join(' · ')));
+    const placesOf = f => (f.selected || []).map(g => {
+      const names = g.places.slice(0, 14).join(' · ') + (g.places.length > 14 ? ' 외 ' + (g.places.length - 14) + '곳' : '');
+      return h('div', null, g.year ? h('b', null, g.year.replace(/\(.*\)/, '').trim()) : null, names);
+    });
+    const table = list => h('div', { class: 'fund-table-wrap' },
+      h('table', { class: 'fund-table' },
+        h('thead', null, h('tr', null, ['사업', '곳당 국비', '상태', '선정·지정 지자체'].map(t => h('th', { scope: 'col' }, t)))),
+        h('tbody', null, list.map(f => {
+          const [stLabel, stTone] = FUND_STATUS[f.status] || FUND_STATUS.unknown;
+          const sel = placesOf(f);
+          return h('tr', null,
+            h('th', { scope: 'row' }, h('a', { href: '#fund-' + f.id, onclick: e => { e.preventDefault(); document.getElementById('fund-' + f.id)?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' }); } }, short(f.name)),
+              h('span', null, f.ministry.split('·')[0].replace(/\s*\(.*$/, ''))),
+            h('td', { class: 'amt' }, f.per_site ? f.per_site.label.replace(/^(곳당|산단당|건물당|도시당|단지당|마을당|센터당) ?/, '') : (f.amount_text || '')),
+            h('td', null, h('span', { class: 'pill tone-' + stTone }, stLabel), f.status_note ? h('span', { class: 'fund-tnote' }, ' ' + f.status_note) : null),
+            h('td', { class: 'places' }, sel.length ? sel : h('span', { class: 'fund-tnote' }, (f.examples || []).map(x => x.place.replace(/\(.*$/, '')).join(' · ') || '확인 못 함')));
+        }))));
+    const card = f => {
+      const [stLabel, stTone] = FUND_STATUS[f.status] || FUND_STATUS.unknown;
+      const ex = f.examples || [];
+      return h('li', { class: 'fund-card', id: 'fund-' + f.id },
+        h('div', { class: 'fund-top' },
+          h('p', { class: 'fund-amt' }, f.per_site ? [h('b', null, f.per_site.label), h('span', null, f.per_site.note || '')] : h('b', { class: 'none' }, f.amount_text || '곳당 금액 없음')),
+          h('span', { class: 'pill tone-' + stTone }, f.status_note ? stLabel + ' · ' + f.status_note : stLabel)),
+        h('h2', null, short(f.name)),
+        h('p', { class: 'fund-org' }, f.ministry.split('·')[0].replace(/\s*\(.*$/, '') + ' · ' + f.field),
+        h('p', { class: 'fund-pitch' }, f.pitch),
+        ex.length ? h('div', { class: 'fund-ex' }, h('h3', null, '최근 선정'), h('ul', null, ex.slice(0, 2).map(exLine))) : null,
+        h('details', { class: 'fund-more' },
+          h('summary', null, '보조율 · 공모 시기 · 준비할 것 · 출처'),
+          h('p', { class: 'fund-full' }, f.name + ' · ' + f.ministry),
+          f.detail_note ? h('p', { class: 'fund-note' }, f.detail_note) : null,
+          f.status_detail ? h('p', { class: 'fund-note' }, f.status_detail) : null,
+          f.selected && f.selected.length ? h('div', { class: 'fund-ex' }, h('h3', null, '선정·지정 지자체'),
+            h('ul', null, f.selected.map(g => h('li', null, g.year ? h('b', null, g.year) : null, g.places.join(' · '),
+              g.note ? h('span', { class: 'fund-tnote' }, ' — ' + g.note) : null, fcite(f, g.source))))) : null,
+          h('dl', { class: 'fund-dl' },
+            f.rate ? h('div', null, h('dt', null, '보조율'), h('dd', null, f.rate)) : null,
+            f.period ? h('div', null, h('dt', null, '기간'), h('dd', null, f.period)) : null,
+            f.call ? h('div', null, h('dt', null, '공모 시기'), h('dd', null, f.call)) : null),
+          ex.length > 2 ? h('div', { class: 'fund-ex' }, h('h3', null, '그 밖의 선정'), h('ul', null, ex.slice(2).map(exLine))) : null,
+          f.prepare && f.prepare.length ? h('div', { class: 'fund-ex' }, h('h3', null, '준비할 것'), h('ul', { class: 'plain' }, f.prepare.map(t => h('li', null, t)))) : null,
+          f.caution && f.caution.length ? h('div', { class: 'fund-ex warn' }, h('h3', null, '주의'), h('ul', { class: 'plain' }, f.caution.map(t => h('li', null, t)))) : null,
+          h('ol', { class: 'fund-src' }, f.sources.map(s => h('li', null, grade(s.grade), ' ',
+            h('a', { href: s.url, target: '_blank', rel: 'noopener' }, s.title), h('span', null, ' · ' + s.publisher + ' · ' + s.date))))));
+    };
+    return [
+      h('p', { class: 'crumb' }, h('a', { href: to() }, '← 목차')),
+      h('section', { class: 'case-head' },
+        h('p', { class: 'meta' }, h('span', null, '탄소중립 국비 공모'), h('span', null, '사업 ' + FUNDS.length + '개'), h('span', null, '최종 확인 ' + checked)),
+        h('h1', null, '탄소중립으로 따낼 수 있는 국비'),
+        h('p', { class: 'dek' }, '지자체가 탄소중립 사업으로 공모에 선정되거나 지정을 받아 확보할 수 있는 국비를, 곳당 국비가 큰 순으로 모았어요.'),
+        h('ul', { class: 'fund-stats' },
+          top ? h('li', null, h('b', null, top.per_site.amount.toLocaleString('ko-KR') + '억'), h('span', null, '곳당 국비 최대 · ' + top.name)) : null,
+          h('li', null, h('b', null, yearly + '개'), h('span', null, '매년 공모가 열리는 사업')),
+          open.length ? h('li', null, h('b', null, open.length + '개'), h('span', null, '지금 접수 중 · ' + open.map(f => f.name + (f.status_note ? '(' + f.status_note + ')' : '')).join(', '))) : null)),
+      h('div', { class: 'filter-bar' },
+        filterSet('fund', '분야', fields, fundField, k => FUNDS.filter(f => (k === '전체' || f.field === k) && inState(f)).length, v => { fundField = v; }),
+        filterSet('fstate', '공모 상태', Object.keys(FUND_STATES), fundState, k => FUNDS.filter(f => (fundField === '전체' || f.field === fundField) && inState(f, k)).length, v => { fundState = v; })),
+      h('section', { class: 'fund-glance' }, h('h2', null, '한눈에 보기'), table(shown)),
+      h('h2', { class: 'fund-h2' }, '사업별 자세히'),
+      h('ul', { class: 'fund-grid' }, shown.map(card)),
+      h('p', { class: 'kf-note' }, '금액은 공고문·정부 발표·보도 기준이고 회차마다 달라요. 신청 전에 그해 공고문을 꼭 확인하세요. 출처 옆 글자는 근거 등급이에요(A 감사·학술, B 정부·지자체 공식, C 언론, D 계획).')
+    ];
+  };
 
   /* ── 운영자 소개 ── */
   const aboutView = () => [
@@ -1387,12 +1526,14 @@ table { border-collapse: collapse; width: 100%; }
   const routeFromUrl = () => {
     if (!PATHS) return location.hash;
     if (/^\/about\/?$/.test(location.pathname)) return '#/about';
+    if (/^\/funding\/?$/.test(location.pathname)) return '#/funding';
     const m = location.pathname.match(/^\/c\/([^/]+)\/?$/);
     if (m) return '#/' + m[1];
     // 예전 #/<id> 링크로 들어오면 새 주소로 바꿔 둔다
     const old = location.hash;
     if (/^#\/./.test(old)) {
-      try { history.replaceState(null, '', '/c/' + old.slice(2) + '/'); } catch (e) {}
+      const page = /^#\/(about|funding)\/?$/.exec(old);
+      try { history.replaceState(null, '', page ? '/' + page[1] + '/' : '/c/' + old.slice(2) + '/'); } catch (e) {}
       return old;
     }
     return '#/';
@@ -1404,7 +1545,7 @@ table { border-collapse: collapse; width: 100%; }
     return (id && (CASES.find(c => c.id === id) || ITEMS.find(c => c.id === id))) || null;
   };
   const go = href => {
-    route = PATHS ? (/^\/about\/?$/.test(href) ? '#/about' : href.match(/^\/c\/([^/]+)\/?$/) ? '#/' + href.split('/')[2] : '#/') : href;
+    route = PATHS ? (/^\/about\/?$/.test(href) ? '#/about' : /^\/funding\/?$/.test(href) ? '#/funding' : href.match(/^\/c\/([^/]+)\/?$/) ? '#/' + href.split('/')[2] : '#/') : href;
     try { history.pushState(null, '', href); } catch (e) {}
     render();
     window.scrollTo(0, 0);
@@ -1412,11 +1553,12 @@ table { border-collapse: collapse; width: 100%; }
   function render() {
     const c = current();
     const isAbout = /^#\/about\/?$/.test(route);
-    document.title = isAbout ? '운영자 소개 · ' + SITE : c ? c.title + ' · ' + SITE : SITE;
-    const view = isAbout ? aboutView() : !c ? indexView() : ITEMS.includes(c) ? itemView(c) : caseView(c);
+    const isFund = /^#\/funding\/?$/.test(route);
+    document.title = isAbout ? '운영자 소개 · ' + SITE : isFund ? '탄소중립 국비 공모 · ' + SITE : c ? c.title + ' · ' + SITE : SITE;
+    const view = isAbout ? aboutView() : isFund ? fundingView() : !c ? indexView() : ITEMS.includes(c) ? itemView(c) : caseView(c);
     document.body.classList.remove('searching');
     app.replaceChildren(...view.filter(Boolean));
-    if (!c && !isAbout) applySearch();
+    if (!c && !isAbout && !isFund) applySearch();
     if (refocus) {
       const el = document.getElementById(refocus);
       if (el) el.focus();
@@ -1425,7 +1567,7 @@ table { border-collapse: collapse; width: 100%; }
   }
   try { localStorage.removeItem('lcc-tier'); } catch (e) {}  // 예전 일반/프로 선택 기억 지우기
   document.addEventListener('click', e => {
-    const a = e.target.closest('a[href^="#/"], a[href^="/c/"], a[href="/"], a[href="/about/"]');
+    const a = e.target.closest('a[href^="#/"], a[href^="/c/"], a[href="/"], a[href="/about/"], a[href="/funding/"]');
     if (!a || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     e.preventDefault();
     go(a.getAttribute('href'));
