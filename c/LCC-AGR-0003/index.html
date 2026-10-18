@@ -13,7 +13,7 @@
 <style id="font-face">
 @font-face {
   font-family: "Pretendard Subset";
-  src: url(/assets/font.ca92709b90.woff) format("woff");
+  src: url(/assets/font.50a351dd3d.woff) format("woff");
   font-weight: 45 920;
   font-display: swap;
 }
@@ -161,6 +161,8 @@ h3 { font-size: 17px; font-weight: 700; line-height: 1.45; margin: 0 0 8px; }
 /* 목차 */
 .index-head { padding-block: 40px 26px; }
 .search { display: flex; align-items: center; gap: 12px; margin: 26px 0 8px; }
+.searching .index-head .lede, .searching .pillars, .searching .hub, .searching .index-jump { display: none; }
+.searching .index-head { padding-block: 18px 8px; }
 .search-label { font-size: 14px; font-weight: 800; white-space: nowrap; }
 .search input { flex: 1; min-width: 0; font: inherit; font-size: 16px; font-weight: 500; padding: 11px 14px; color: var(--ink); background: var(--panel); border: 1px solid var(--rule); border-radius: 10px; }
 .search input:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
@@ -905,6 +907,7 @@ table { border-collapse: collapse; width: 100%; }
       const rows = g.querySelectorAll('li.case-row[data-id]');
       if (rows.length) g.hidden = terms.length > 0 && [...rows].every(r => r.hidden);
     });
+    document.body.classList.toggle('searching', terms.length > 0);
     const filtered = sector !== '전체' || scale !== '전체' || itemCat !== '전체' || itemKind !== '전체';
     status.replaceChildren(...(!terms.length ? [] : nCase + nItem ? [
       '‘' + query.trim() + '’ 사례 ' + nCase + '건 · 품목 ' + nItem + '건',
@@ -960,6 +963,13 @@ table { border-collapse: collapse; width: 100%; }
     const places = new Set(CASES.flatMap(c => c.jurisdictions.map(j => j.name))).size;
     const smallCount = CASES.filter(c => !isBig(c)).length;
     return [
+      h('div', { class: 'search', role: 'search' },
+        h('label', { for: 'q', class: 'search-label' }, '전체 검색'),
+        h('input', { type: 'search', id: 'q', value: query, autocomplete: 'off',
+          placeholder: '지역·기술·제도·기관 이름 (예: 히트펌프, 홍천, 감사원)',
+          oninput: e => { query = e.target.value; applySearch(); },
+          onkeydown: e => { if (e.key === 'Escape') { e.target.value = query = ''; applySearch(); } } })),
+      h('p', { class: 'search-status', id: 'search-status', role: 'status' }),
       h('section', { class: 'index-head' },
         h('p', { class: 'meta' },
           h('span', null, '목차'), h('span', null, '사례 ' + CASES.length + '건'),
@@ -974,13 +984,6 @@ table { border-collapse: collapse; width: 100%; }
         h('p', { class: 'index-jump' },
           h('a', { href: '#sec-about', onclick: e => { e.preventDefault(); jump('sec-about'); } }, '근거 등급 · 데이터 내려받기 ↓'),
           h('a', { href: ABOUT }, '운영자 소개 →'))),
-      h('div', { class: 'search', role: 'search' },
-        h('label', { for: 'q', class: 'search-label' }, '전체 검색'),
-        h('input', { type: 'search', id: 'q', value: query, autocomplete: 'off',
-          placeholder: '지역·기술·제도·기관 이름 (예: 히트펌프, 홍천, 감사원)',
-          oninput: e => { query = e.target.value; applySearch(); },
-          onkeydown: e => { if (e.key === 'Escape') { e.target.value = query = ''; applySearch(); } } })),
-      h('p', { class: 'search-status', id: 'search-status', role: 'status' }),
       h('div', { class: 'filter-bar' },
         filterSet('sector', '분야', sectors, sector,
           s => CASES.filter(c => inSector(c, s) && inScale(c)).length, v => { sector = v; }),
@@ -1407,6 +1410,7 @@ table { border-collapse: collapse; width: 100%; }
     const isAbout = /^#\/about\/?$/.test(route);
     document.title = isAbout ? '운영자 소개 · ' + SITE : c ? c.title + ' · ' + SITE : SITE;
     const view = isAbout ? aboutView() : !c ? indexView() : ITEMS.includes(c) ? itemView(c) : caseView(c);
+    document.body.classList.remove('searching');
     app.replaceChildren(...view.filter(Boolean));
     if (!c && !isAbout) applySearch();
     if (refocus) {
